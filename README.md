@@ -1,34 +1,40 @@
-## Starting the Student Exercises API
+# Student Exercises Controllers
 
-Your instruction team will get you started on converting your student exercises command line app into an API that will respond to HTTP requests.
+Your task is to continue to build out the Student Exercises API.
 
-### Setting up Database
+1. Copy remaining models from your CLI application to `Models` directory of your API project.
+1. Create Student controller. Student JSON representation should include cohort name.
+    ```json
+    {
+        "FirstName": "Callan",
+        "LastName": "Morrison",
+        "SlackHandle": "@morecallan",
+        "Cohort": "Evening Cohort 3"
+    }
+    ```
+1. Create Instructor controller. Instructor JSON representation should include cohort name.
+    ```json
+    {
+        "FirstName": "Zoe",
+        "LastName": "Ames",
+        "SlackHandle": "@zoeames",
+        "Cohort": "Evening Cohort 8"
+    }
+    ```
+1. Create Cohort controller. Cohort JSON representation should include array of students, and the instructor.
+    ```json
+    {
+        "CohortName": "Day Cohort 12",
+        "Students": [
+            "Dylan Thomas",
+            "Thomas Buida",
+            "David Shuman",
+            "Michael Bennett",
+            "Kaylee Cummings",
+            "Jeremy Swain",
+            "Jeremy Landi"
+        ],
+        "Instructor": "Joe Shepherd"
+    }
+    ```
 
-1. Generate a new Web API with `dotnet new webapi -o StudentExercises`
-1. Update `appsettings.json`
-   ```json
-   {
-     "Logging": {
-       "LogLevel": {
-         "Default": "Warning"
-       }
-     },
-     "AllowedHosts": "*",
-     "ConnectionStrings": {
-       "DefaultConnection": "Server=localhost\\SQLEXPRESS;Database=StudentExercises;Trusted_Connection=True;"
-     }
-   }
-   ```
-
-### Exercise Model
-
-Copy the `Models/Exercise.cs` file from the CLI application into the `Models` directory of your new API project.
-
-### Controller Methods
-
-1. Create `ExercisesController`
-1. Code for getting a list of exercises
-1. Code for getting a single exercise
-1. Code for creating an exercise
-1. Code for editing an exercise
-1. Code for deleting an exercise
