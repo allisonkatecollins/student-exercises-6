@@ -28,7 +28,8 @@ namespace StudentExercises5.Controllers
         {
             get
             {
-                return new SqlConnection(_config.GetConnectionString("DefaultConnection"));
+                string connectionString = "Server=ALLISONCOLLINS-\\SQLEXPRESS; Database=StudentExercises; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
+                return new SqlConnection(connectionString);
             }
         }
 

@@ -4,6 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using System.Data;
+using System.Data.SqlClient;
+using StudentExercises5.Models;
+
+//Cohort JSON representation should include array of students, and the instructor.
 
 namespace StudentExercises5.Controllers
 {
@@ -11,6 +17,21 @@ namespace StudentExercises5.Controllers
     [ApiController]
     public class CohortController : ControllerBase
     {
+        private readonly IConfiguration _config;
+
+        public CohortController(IConfiguration config)
+        {
+            _config = config;
+        }
+
+        public SqlConnection Connection
+        {
+            get
+            {
+                string connectionString = "Server=ALLISONCOLLINS-\\SQLEXPRESS; Database=StudentExercises; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
+                return new SqlConnection(connectionString);
+            }
+        }
         // GET: api/Cohort
         [HttpGet]
         public IEnumerable<string> Get()
