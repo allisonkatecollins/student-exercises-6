@@ -61,11 +61,7 @@ namespace StudentExercises5.Controllers
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            cohort = new Cohort
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                Name = reader.GetString(reader.GetOrdinal("CohortName"))
-                            }
+                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
                         };
 
                         students.Add(student);
@@ -92,7 +88,7 @@ namespace StudentExercises5.Controllers
                             s.Id, s.FirstName, s.LastName, s.SlackHandle, s.CohortId, c.CohortName
                         FROM Student s
                         WHERE Id = @id
-                        LEFT JOIN Cohort c ON s.CohortId = c.Id";
+                        LEFT JOIN Cohort c ON s.CohortId = c.Id;";
                     cmd.Parameters.Add(new SqlParameter("@id", id));
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -107,11 +103,7 @@ namespace StudentExercises5.Controllers
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            cohort = new Cohort
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                Name = reader.GetString(reader.GetOrdinal("CohortName"))
-                            }
+                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
                         };
                     }
                     reader.Close();
@@ -138,11 +130,12 @@ namespace StudentExercises5.Controllers
                     cmd.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
                     cmd.Parameters.Add(new SqlParameter("@lastName", student.LastName));
                     cmd.Parameters.Add(new SqlParameter("@slackHandle", student.SlackHandle));
+                    cmd.Parameters.Add(new SqlParameter("@cohortName", student.CohortName));
                     cmd.Parameters.Add(new SqlParameter("@cohortId", student.CohortId));
 
                     int newId = (int)cmd.ExecuteScalar();
                     student.Id = newId;
-                    return CreatedAtRoute("GetExercise", new { id = newId }, student);
+                    return CreatedAtRoute("GetStudent", new { id = newId }, student);
                 }
             }
         }
@@ -170,6 +163,7 @@ namespace StudentExercises5.Controllers
                         cmd.Parameters.Add(new SqlParameter("@firstName", student.FirstName));
                         cmd.Parameters.Add(new SqlParameter("@lastName", student.LastName));
                         cmd.Parameters.Add(new SqlParameter("@slackHandle", student.SlackHandle));
+                        cmd.Parameters.Add(new SqlParameter("@cohortName", student.CohortName));
                         cmd.Parameters.Add(new SqlParameter("@cohortId", student.CohortId));
 
                         int rowsAffected = cmd.ExecuteNonQuery();

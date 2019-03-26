@@ -60,11 +60,7 @@ namespace StudentExercises5.Controllers
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            cohort = new Cohort
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                Name = reader.GetString(reader.GetOrdinal("CohortName"))
-                            }
+                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
                         };
 
                         instructors.Add(instructor);
@@ -105,11 +101,7 @@ namespace StudentExercises5.Controllers
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            cohort = new Cohort
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                Name = reader.GetString(reader.GetOrdinal("CohortName"))
-                            }
+                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
                         };
                     }
                     reader.Close();
@@ -136,11 +128,12 @@ namespace StudentExercises5.Controllers
                     cmd.Parameters.Add(new SqlParameter("@firstName", instructor.FirstName));
                     cmd.Parameters.Add(new SqlParameter("@lastName", instructor.LastName));
                     cmd.Parameters.Add(new SqlParameter("@slackHandle", instructor.SlackHandle));
+                    cmd.Parameters.Add(new SqlParameter("@cohortName", instructor.CohortName));
                     cmd.Parameters.Add(new SqlParameter("@cohortId", instructor.CohortId));
 
                     int newId = (int)cmd.ExecuteScalar();
                     instructor.Id = newId;
-                    return CreatedAtRoute("GetExercise", new { id = newId }, instructor);
+                    return CreatedAtRoute("GetInstructor", new { id = newId }, instructor);
                 }
             }
         }
