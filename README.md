@@ -1,40 +1,13 @@
-# Student Exercises Controllers
+# Student Exercises - Using Query String Parameters
 
-Your task is to continue to build out the Student Exercises API.
+## Practice
 
-1. Copy remaining models from your CLI application to `Models` directory of your API project.
-1. Create Student controller. Student JSON representation should include cohort name.
-    ```json
-    {
-        "FirstName": "Callan",
-        "LastName": "Morrison",
-        "SlackHandle": "@morecallan",
-        "Cohort": "Evening Cohort 3"
-    }
-    ```
-1. Create Instructor controller. Instructor JSON representation should include cohort name.
-    ```json
-    {
-        "FirstName": "Zoe",
-        "LastName": "Ames",
-        "SlackHandle": "@zoeames",
-        "Cohort": "Evening Cohort 8"
-    }
-    ```
-1. Create Cohort controller. Cohort JSON representation should include array of students, and the instructor.
-    ```json
-    {
-        "CohortName": "Day Cohort 12",
-        "Students": [
-            "Dylan Thomas",
-            "Thomas Buida",
-            "David Shuman",
-            "Michael Bennett",
-            "Kaylee Cummings",
-            "Jeremy Swain",
-            "Jeremy Landi"
-        ],
-        "Instructor": "Joe Shepherd"
-    }
-    ```
+1. Student JSON response should have all exercises that are assigned to them if the `include=exercise` query string parameter is there.
+1. Exercise JSON response should all currently assigned students if the `include=students` query string parameter is there.
+1. Provide support for each resource (Instructor, Student, Cohort, Exercise) and the `q` query string parameter. If it is provided, your SQL should search relevant property for a match, search all properties of the resource for a match.
+    1. `FirstName`, `LastName`, and `SlackHandle` for instructors and students.
+    1. `Name` and `Language` for exercises.
+    1. `Name` for cohorts.
 
+
+> **Hint:** Use [LIKE](https://www.techonthenet.com/sql_server/like.php) in the SQL query for pattern matching.
