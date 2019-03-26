@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using StudentExercises5.Models;
+using StudentExercises6.Models;
 
 
-namespace StudentExercises5.Controllers
+namespace StudentExercises6.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
