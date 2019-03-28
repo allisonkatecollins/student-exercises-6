@@ -10,13 +10,14 @@ using System.Data.SqlClient;
 using StudentExercises6.Models;
 
 
+//Exercise JSON response should all currently assigned students if the include=students query string parameter is there.
 namespace StudentExercises6.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ExerciseController : ControllerBase
     {
-        //the following code is modeled after CoffeesController from book
+
         private readonly IConfiguration _config;
 
         public ExerciseController(IConfiguration config)
@@ -28,14 +29,14 @@ namespace StudentExercises6.Controllers
         {
             get
             {
-                string connectionString = "Server=ALLISONCOLLINS-\\SQLEXPRESS; Database=StudentExercises; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
+                string connectionString = _config.GetConnectionString("DefaultConnection");
                 return new SqlConnection(connectionString);
             }
         }
 
         //Code for getting a list of exercises
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(string exerciseName, string exerciseLanguage)
         {
             using (SqlConnection conn = Connection)
             {
@@ -66,7 +67,7 @@ namespace StudentExercises6.Controllers
 
         //Code for getting a single exercise
         [HttpGet("{id}", Name = "GetExercise")]
-        public async Task<IActionResult> Get([FromRoute] int id)
+        public async Task<IActionResult> Get(string exerciseName, string exerciseLanguage, [FromRoute] int id)
         {
             using (SqlConnection conn = Connection)
             {

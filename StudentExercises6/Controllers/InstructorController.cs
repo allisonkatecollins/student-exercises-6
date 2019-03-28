@@ -28,7 +28,7 @@ namespace StudentExercises6.Controllers
         {
             get
             {
-                string connectionString = "Server=ALLISONCOLLINS-\\SQLEXPRESS; Database=StudentExercises; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
+                string connectionString = _config.GetConnectionString("DefaultConnection");
                 return new SqlConnection(connectionString);
             }
         }
@@ -45,7 +45,7 @@ namespace StudentExercises6.Controllers
                 {
                     cmd.CommandText = @"
                         SELECT 
-                            i.Id, i.FirstName, i.LastName, i.SlackHandle, i.CohortId, c.CohortName
+                            i.Id, i.FirstName, i.LastName, i.SlackHandle, i.CohortId, c.Id, c.CohortName
                         FROM Instructor i
                         LEFT JOIN Cohort c ON i.CohortId = c.Id;";
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -60,7 +60,11 @@ namespace StudentExercises6.Controllers
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
+                            Cohort = new Cohort
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
+                            }
                         };
 
                         instructors.Add(instructor);
@@ -84,7 +88,7 @@ namespace StudentExercises6.Controllers
                 {
                     cmd.CommandText = @"
                         SELECT 
-                            i.Id, i.FirstName, i.LastName, i.SlackHandle, i.CohortId, c.CohortName
+                            i.Id, i.FirstName, i.LastName, i.SlackHandle, i.CohortId, c.id, c.CohortName
                         FROM Instructor i
                         LEFT JOIN Cohort c ON i.CohortId = c.Id;";
                     cmd.Parameters.Add(new SqlParameter("@id", id));
@@ -101,7 +105,11 @@ namespace StudentExercises6.Controllers
                             LastName = reader.GetString(reader.GetOrdinal("LastName")),
                             SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
                             CohortId = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                            CohortName = reader.GetString(reader.GetOrdinal("CohortName")),
+                            Cohort = new Cohort
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
+                            }
                         };
                     }
                     reader.Close();
@@ -128,7 +136,6 @@ namespace StudentExercises6.Controllers
                     cmd.Parameters.Add(new SqlParameter("@firstName", instructor.FirstName));
                     cmd.Parameters.Add(new SqlParameter("@lastName", instructor.LastName));
                     cmd.Parameters.Add(new SqlParameter("@slackHandle", instructor.SlackHandle));
-                    cmd.Parameters.Add(new SqlParameter("@cohortName", instructor.CohortName));
                     cmd.Parameters.Add(new SqlParameter("@cohortId", instructor.CohortId));
 
                     int newId = (int)cmd.ExecuteScalar();

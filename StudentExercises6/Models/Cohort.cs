@@ -9,7 +9,7 @@ namespace StudentExercises6.Models
     {
         public int Id { get; set; }
         public string CohortName { get; set; }
-        public List<Student> students = new List<Student>();
-        public List<Instructor> instructors = new List<Instructor>();
+        public List<Student> students { get; set; } = new List<Student>();
+        public List<Instructor> instructors { get; set; } = new List<Instructor>();
     }
 }
