@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StudentExercises6.Models
+namespace StudentExercisesAPI.Models
 {
     public class StudentExercise
     {

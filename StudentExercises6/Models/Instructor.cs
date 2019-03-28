@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace StudentExercises6.Models
+namespace StudentExercisesAPI.Models
 {
     public class Instructor
     {

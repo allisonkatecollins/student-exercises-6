@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using StudentExercises6.Models;
+using StudentExercisesAPI.Models;
 
 
 //Exercise JSON response should all currently assigned students if the include=students query string parameter is there.
-namespace StudentExercises6.Controllers
+namespace StudentExercisesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
