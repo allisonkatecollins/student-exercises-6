@@ -11,3 +11,13 @@
 
 
 > **Hint:** Use [LIKE](https://www.techonthenet.com/sql_server/like.php) in the SQL query for pattern matching.
+
+# Validating Student Exercise Data
+
+## Practice
+
+1. `Name` and `Language` properties on an exercises should be required.
+1. Instructor `FirstName`, `LastName`, and `SlackHandle` should be required.
+1. Cohort `Name` should be required.
+1. Cohort `Name` should be a minimum of of 5 characters and and no more than 11.
+1. Student, and Instructor `SlackHandle` value should be a minimum of 3 characters and no more than 12.
